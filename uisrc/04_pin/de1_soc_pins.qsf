@@ -1,0 +1,89 @@
+# ============================================================
+# de1_soc_pins.qsf — DE1-SoC 引脚约束 (基于官方 pin planner)
+# 数据来源: 项目资料/pin planner.xls + DE1-SoC_User_Manual
+# 实际部署 EF2L45BG256 时使用 .adc 文件替换
+# ============================================================
+
+# ── 系统时钟 ────────────────────────────────────────────
+# CLK_50 = PIN_AF14 (板载 50MHz 晶振, 专用时钟输入)
+set_location_assignment PIN_AF14 -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+
+# ── 复位 (使用 KEY[0] 按键) ────────────────────────────
+# KEY[0]：不按时=3.3V(高), 按下=GND(低) → 匹配低有效 rst_n ✅
+# KEY 有硬件上拉，不需要 WEAK_PULL_UP
+set_location_assignment PIN_AA14 -to rst_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rst_n
+
+# ═══════════════════════════════════════════════════════
+#  以下全部使用 GPIO_0 扩展接口 (36 pins, 3.3V LVTTL)
+#  GPIO_00 = AC18, GPIO_01 = Y17, ..., GPIO_035 = AJ21
+# ═══════════════════════════════════════════════════════
+
+# ── 循迹传感器 (6 inputs) ───────────────────────────────
+set_location_assignment PIN_Y17  -to track_sensor[0]   ;# GPIO_01
+set_location_assignment PIN_Y18  -to track_sensor[1]   ;# GPIO_03
+set_location_assignment PIN_AK16 -to track_sensor[2]   ;# GPIO_04
+set_location_assignment PIN_AK18 -to track_sensor[3]   ;# GPIO_05
+set_location_assignment PIN_AK19 -to track_sensor[4]   ;# GPIO_06
+set_location_assignment PIN_AJ19 -to track_sensor[5]   ;# GPIO_07
+
+# ── 电机驱动 U1 (前桥, L298N) ───────────────────────────
+set_location_assignment PIN_AJ17 -to m1_in1           ;# GPIO_08
+set_location_assignment PIN_AJ16 -to m1_in2           ;# GPIO_09
+set_location_assignment PIN_AH18 -to m2_in3           ;# GPIO_010
+set_location_assignment PIN_AH17 -to m2_in4           ;# GPIO_011
+
+# ── 电机驱动 U2 (后桥, L298N) ───────────────────────────
+set_location_assignment PIN_AG16 -to m3_in1           ;# GPIO_012
+set_location_assignment PIN_AE16 -to m3_in2           ;# GPIO_013
+set_location_assignment PIN_AF16 -to m4_in3           ;# GPIO_014
+set_location_assignment PIN_AG17 -to m4_in4           ;# GPIO_015
+
+# ── LCD1602 接口 ────────────────────────────────────────
+set_location_assignment PIN_AA18 -to lcd_rs           ;# GPIO_016
+set_location_assignment PIN_AE17 -to lcd_en           ;# GPIO_018
+set_location_assignment PIN_AC20 -to lcd_data[0]      ;# GPIO_019
+set_location_assignment PIN_AH19 -to lcd_data[1]      ;# GPIO_020
+set_location_assignment PIN_AJ20 -to lcd_data[2]      ;# GPIO_021
+set_location_assignment PIN_AH20 -to lcd_data[3]      ;# GPIO_022
+
+# ── HC-SR04 超声波 ──────────────────────────────────────
+set_location_assignment PIN_AK21 -to ultra_trig       ;# GPIO_023
+set_location_assignment PIN_AD19 -to ultra_echo       ;# GPIO_024
+
+# ── DHT11 温湿度 (双向) ─────────────────────────────────
+set_location_assignment PIN_AD20 -to dht_data         ;# GPIO_025
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to dht_data
+
+# ── 蜂鸣器 ───────────────────────────────────────────────
+set_location_assignment PIN_AE18 -to buzzer_out       ;# GPIO_026
+
+# ── L298N 通道使能 (经 74HCT245D 升压到 5V) ───────────────
+set_location_assignment PIN_AE19 -to en_u1_ena        ;# GPIO_027
+set_location_assignment PIN_AF20 -to en_u1_enb        ;# GPIO_028
+set_location_assignment PIN_AF21 -to en_u2_ena        ;# GPIO_029
+set_location_assignment PIN_AF19 -to en_u2_enb        ;# GPIO_030
+
+# ── 调试 LED ───────────────────────────────────────────
+# LEDR0 在 DE1-SoC 板子上，1Hz 闪烁 = 代码在跑
+set_location_assignment PIN_V16 -to led_test
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_test
+
+# LEDR1: LCD 初始化状态 (亮=初始化完成)
+set_location_assignment PIN_W16 -to led_dbg2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_dbg2
+
+# ═══════════════════════════════════════════════════════
+#  未使用但可用的引脚 (供参考)
+#  GPIO_027 = AE19, GPIO_028 = AF20, GPIO_029 = AF21
+#  GPIO_031~035 = AG21~AJ21
+#  GPIO_1[0:35] = AB17~AC22 (第二扩展接口)
+#    ⚠ DE1-SoC-MTL2 的触摸屏占用 GPIO_1 部分引脚:
+#      MTL_DCLK, MTL_R/G/B[7:0], MTL_HSD, MTL_VSD
+#      MTL_TOUCH_I2C_SCL/SDA, MTL_TOUCH_INT_n
+#      如连接 MTL2 模块请勿在 GPIO_1 上接其他外设
+#  KEY[0:3] = AA14/AA15/W15/Y16 (机械按键, 低有效)
+#  LEDR[0:9] = V16~Y21 (10 个红色 LED)
+#  SW[9:0] = AB12~AE12 (拨动开关)
+# ═══════════════════════════════════════════════════════

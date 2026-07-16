@@ -1,0 +1,94 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 2018  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus Prime
+# Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+# Date created = 19:19:19  July 14, 2026
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		de1_soc_test_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus Prime software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name DEVICE 5CSEMA5F31C6
+set_global_assignment -name TOP_LEVEL_ENTITY top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 18.1.0
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "19:19:19  JULY 14, 2026"
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/top.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/pll_bypass.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/main_controller.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/clk_divider.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/line_tracking.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/motor_control.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/ultrasonic_driver.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/buzzer_ctrl.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/lcd_driver.v"
+set_global_assignment -name VERILOG_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/uisrc/01_rtl/dht11_driver.v"
+set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name SDC_FILE "E:/ObsidianVault/01-Projects/Summer Internship/fpga-ctrl-code/fpga_prj/de1_soc_test.sdc"
+set_location_assignment PIN_AF14 -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_location_assignment PIN_AA14 -to rst_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rst_n
+set_location_assignment PIN_Y17 -to track_sensor[0]
+set_location_assignment PIN_Y18 -to track_sensor[1]
+set_location_assignment PIN_AK16 -to track_sensor[2]
+set_location_assignment PIN_AK18 -to track_sensor[3]
+set_location_assignment PIN_AK19 -to track_sensor[4]
+set_location_assignment PIN_AJ19 -to track_sensor[5]
+set_location_assignment PIN_AJ17 -to m1_in1
+set_location_assignment PIN_AJ16 -to m1_in2
+set_location_assignment PIN_AH18 -to m2_in3
+set_location_assignment PIN_AH17 -to m2_in4
+set_location_assignment PIN_AG16 -to m3_in1
+set_location_assignment PIN_AE16 -to m3_in2
+set_location_assignment PIN_AF16 -to m4_in3
+set_location_assignment PIN_AG17 -to m4_in4
+set_location_assignment PIN_AA18 -to lcd_rs
+set_location_assignment PIN_AE17 -to lcd_en
+set_location_assignment PIN_AC20 -to lcd_data[0]
+set_location_assignment PIN_AH19 -to lcd_data[1]
+set_location_assignment PIN_AJ20 -to lcd_data[2]
+set_location_assignment PIN_AH20 -to lcd_data[3]
+set_location_assignment PIN_AK21 -to ultra_trig
+set_location_assignment PIN_AD19 -to ultra_echo
+set_location_assignment PIN_AD20 -to dht_data
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to dht_data
+set_location_assignment PIN_AE18 -to buzzer_out
+set_location_assignment PIN_AE19 -to en_u1_ena
+set_location_assignment PIN_AF20 -to en_u1_enb
+set_location_assignment PIN_AF21 -to en_u2_ena
+set_location_assignment PIN_AF19 -to en_u2_enb
+set_location_assignment PIN_V16 -to led_test
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_test
+set_location_assignment PIN_W16 -to led_dbg2
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_dbg2

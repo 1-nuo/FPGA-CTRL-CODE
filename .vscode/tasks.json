@@ -1,0 +1,155 @@
+{
+    "version": "2.0.0",
+    "problemMatchers": [
+        {
+            "name": "quartus-errors",
+            "owner": "verilog",
+            "fileLocation": [
+                "autoDetect",
+                "${workspaceFolder}\\uisrc\\01_rtl"
+            ],
+            "pattern": [
+                {
+                    "regexp": "^(Error|Warning|Critical Warning)\\s*\\(\\d+\\):\\s*(.*?)\\s+at\\s+(\\S+)\\((\\d+)\\)",
+                    "severity": 1,
+                    "message": 2,
+                    "file": 3,
+                    "line": 4
+                },
+                {
+                    "regexp": "^(Error|Warning|Critical Warning)\\s*\\(\\d+\\):\\s*(.*?)$",
+                    "severity": 1,
+                    "message": 2
+                }
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "label": "① 创建工程 (一次)",
+            "type": "shell",
+            "command": "quartus_sh",
+            "args": [
+                "-t",
+                "${workspaceFolder}\\fpga_prj\\setup_project.tcl"
+            ],
+            "group": "none",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "detail": "只在第一次运行：创建 DE1-SoC 工程，添加源文件，选 Cyclone V"
+        },
+        {
+            "label": "② 全流程编译 (Ctrl+Shift+B)",
+            "type": "shell",
+            "command": "quartus_cmd",
+            "args": [
+                "de1_soc_test",
+                "-c",
+                "de1_soc_test"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\fpga_prj"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [
+                "$quartus-errors"
+            ],
+            "detail": "综合 → 布线 → 生成 .sof，日常编译用这个"
+        },
+        {
+            "label": "③ 仅综合 (快速语法检查)",
+            "type": "shell",
+            "command": "quartus_map",
+            "args": [
+                "de1_soc_test",
+                "-c",
+                "de1_soc_test"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\fpga_prj"
+            },
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [
+                "$quartus-errors"
+            ],
+            "detail": "只做语法检查+综合，不改布线，改代码后快速验证"
+        },
+        {
+            "label": "④ 下载到板子 (.sof)",
+            "type": "shell",
+            "command": "quartus_pgm",
+            "args": [
+                "-c",
+                "DE-SoC [USB-1]",
+                "-m",
+                "jtag",
+                "-o",
+                "p;${workspaceFolder}\\fpga_prj\\de1_soc_test.sof@2"
+            ],
+            "group": "none",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "detail": "通过 USB-Blaster JTAG 下载 .sof 到 DE1-SoC FPGA (@2=跳过HPS)"
+        },
+        {
+            "label": "⑤ 清除编译结果 (Clean)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "Remove-Item -Path '${workspaceFolder}\\fpga_prj\\db', '${workspaceFolder}\\fpga_prj\\incremental_db' -Recurse -Force -ErrorAction SilentlyContinue; Write-Output '清理完成'"
+            ],
+            "group": "none",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "detail": "删除 db 和 incremental_db 中间文件"
+        },
+        {
+            "label": "⑥ 打开 Quartus GUI",
+            "type": "shell",
+            "command": "quartus",
+            "args": [
+                "${workspaceFolder}\\fpga_prj\\de1_soc_test.qpf"
+            ],
+            "group": "none",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated"
+            },
+            "problemMatcher": [],
+            "detail": "打开 Quartus 图形界面（配引脚 Pin Planner、加 IP、看时序报告）"
+        }
+    ]
+}

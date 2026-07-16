@@ -1,0 +1,34 @@
+{
+    // ---------- 编辑器 ----------
+    "files.autoSave": "onFocusChange",
+    "editor.renderWhitespace": "boundary",
+    "editor.tabSize": 4,
+    "editor.detectIndentation": false,
+    "explorer.compactFolders": false,
+
+    // ---------- Verilog (TerosHDL) ----------
+    "verilog.linting": true,
+    "verilog.formatting": true,
+    "[verilog]": {
+        "editor.formatOnSave": true
+    },
+    "files.associations": {
+        "*.v": "verilog",
+        "*.sv": "systemverilog"
+    },
+    "teroshdl.linter": "builtin",              // 用内置语法分析器，不调外部工具
+    "teroshdl.formatter": "builtin",           // 用内置格式化器
+
+    // ---------- Quartus 集成 ----------
+    "quartus.installationDir": "D:\\quartus_prime_llite",
+    "quartus.programmerDir": "D:\\quartus\\qprogrammer",
+    "modelsim.installationDir": "D:\\quartus\\modelsim_ase",
+    "quartus.projectFile": "${workspaceFolder}\\fpga_prj\\de1_soc_test.qpf",
+
+    // ---------- 终端 ----------
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.cursorBlinking": true,
+
+    // ---------- 问题面板 ----------
+    "problems.autoReveal": true
+}

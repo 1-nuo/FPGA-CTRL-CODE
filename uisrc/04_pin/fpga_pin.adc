@@ -1,0 +1,67 @@
+# ============================================================
+# fpga_pin.adc — 引脚约束文件
+# 芯片：安路 EF2L45BG256B (BGA256)
+# 格式：NET "信号名"  LOC = 引脚编号;
+#       NET "信号名"  IOSTANDARD = LVCMOS33;
+# 注意：引脚编号需根据你的 PCB 原理图填写！
+# ============================================================
+
+# ── 系统时钟与复位 ──────────────────────────────────────────
+NET "clk"           LOC = ;     # 晶振输入引脚（待填写）
+NET "rst_n"         LOC = ;     # 复位按键引脚（待填写）
+NET "clk"           IOSTANDARD = LVCMOS33;
+NET "rst_n"         IOSTANDARD = LVCMOS33;
+
+# ── 循迹传感器输入 ──────────────────────────────────────────
+NET "track_sensor[0]" LOC = ;   # S1（待填写）
+NET "track_sensor[1]" LOC = ;   # S2（待填写）
+NET "track_sensor[2]" LOC = ;   # S3（待填写）
+NET "track_sensor[3]" LOC = ;   # S4（待填写）
+NET "track_sensor[4]" LOC = ;   # S5（待填写）
+NET "track_sensor[5]" LOC = ;   # S6（待填写）
+NET "track_sensor[*]" IOSTANDARD = LVCMOS33;
+
+# ── 电机驱动输出 (U1 L298N 前桥) ───────────────────────────
+NET "m1_in1"        LOC = ;     # GPIO_9 （待填写）
+NET "m1_in2"        LOC = ;     # GPIO_10（待填写）
+NET "m2_in3"        LOC = ;     # GPIO_11（待填写）
+NET "m2_in4"        LOC = ;     # GPIO_12（待填写）
+NET "m1_in1"        IOSTANDARD = LVCMOS33;
+NET "m1_in2"        IOSTANDARD = LVCMOS33;
+NET "m2_in3"        IOSTANDARD = LVCMOS33;
+NET "m2_in4"        IOSTANDARD = LVCMOS33;
+
+# ── 电机驱动输出 (U2 L298N 后桥) ───────────────────────────
+NET "m3_in1"        LOC = ;     # GPIO_17（待填写）
+NET "m3_in2"        LOC = ;     # GPIO_18（待填写）
+NET "m4_in3"        LOC = ;     # GPIO_19（待填写）
+NET "m4_in4"        LOC = ;     # GPIO_20（待填写）
+NET "m3_in1"        IOSTANDARD = LVCMOS33;
+NET "m3_in2"        IOSTANDARD = LVCMOS33;
+NET "m4_in3"        IOSTANDARD = LVCMOS33;
+NET "m4_in4"        IOSTANDARD = LVCMOS33;
+
+# ── LCD1602 ──────────────────────────────────────────────────
+NET "lcd_rs"        LOC = ;     # GPIO_13（待填写）
+NET "lcd_en"        LOC = ;     # GPIO_14（待填写）
+NET "lcd_data[0]"   LOC = ;     # D4 = GPIO_15（待填写）
+NET "lcd_data[1]"   LOC = ;     # D5 = GPIO_21（待填写）
+NET "lcd_data[2]"   LOC = ;     # D6 = GPIO_22（待填写）
+NET "lcd_data[3]"   LOC = ;     # D7 = GPIO_23（待填写）
+NET "lcd_rs"        IOSTANDARD = LVCMOS33;
+NET "lcd_en"        IOSTANDARD = LVCMOS33;
+NET "lcd_data[*]"   IOSTANDARD = LVCMOS33;
+
+# ── HC-SR04 超声波 ──────────────────────────────────────────
+NET "ultra_trig"    LOC = ;     # GPIO_25（待填写）
+NET "ultra_echo"    LOC = ;     # GPIO_26（待填写）
+NET "ultra_trig"    IOSTANDARD = LVCMOS33;
+NET "ultra_echo"    IOSTANDARD = LVCMOS33;
+
+# ── DHT11 ────────────────────────────────────────────────────
+NET "dht_data"      LOC = ;     # GPIO_24（待填写）
+NET "dht_data"      IOSTANDARD = LVCMOS33;
+
+# ── 蜂鸣器 ───────────────────────────────────────────────────
+NET "buzzer_out"    LOC = ;     # GPIO_16（待填写）
+NET "buzzer_out"    IOSTANDARD = LVCMOS33;

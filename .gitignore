@@ -1,0 +1,42 @@
+# ============================================================
+# Quartus Prime 编译产物
+# ============================================================
+fpga_prj/db/
+fpga_prj/incremental_db/
+fpga_prj/output_files/
+fpga_prj/*.rpt
+fpga_prj/*.done
+fpga_prj/*.smsg
+fpga_prj/*.summary
+fpga_prj/*.pin
+fpga_prj/*.jdi
+fpga_prj/*.sld
+fpga_prj/*.sof
+fpga_prj/*.pof
+fpga_prj/c5_pin_model_dump.txt
+
+# ============================================================
+# ModelSim 仿真产物
+# ============================================================
+work/
+uisrc/02_sim/work/
+uisrc/02_sim/transcript
+uisrc/02_sim/*.vcd
+uisrc/02_sim/*.wlf
+uisrc/02_sim/*.vstf
+uisrc/02_sim/*.dump
+modelsim.ini
+
+# ============================================================
+# 系统文件
+# ============================================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ============================================================
+# VSCode 配置（保留 tasks.json 和 settings.json）
+# ============================================================
+.vscode/keybindings.json
